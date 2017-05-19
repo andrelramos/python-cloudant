@@ -83,8 +83,16 @@ class Feed(object):
         """
         Starts streaming the feed using the provided session and feed options.
         """
+
         params = self._translate(self._options)
-        self._resp = self._r_session.get(self._url, params=params, stream=True)
+        filter_req = params.pop('filter_req', None)
+
+        if filter_req:
+            headers = {'Content-Type': 'application/json'}
+            self._resp = self._r_session.post(self._url, params=params, data=filter_req, headers=headers, stream=True)
+        else:
+            self._resp = self._r_session.get(self._url, params=params, stream=True)
+
         self._resp.raise_for_status()
         self._lines = self._resp.iter_lines(self._chunk_size)
 

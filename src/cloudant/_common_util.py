@@ -77,7 +77,8 @@ TYPE_CONVERTERS = {
     int: lambda x: x,
     LONGTYPE: lambda x: x,
     bool: lambda x: 'true' if x else 'false',
-    NONETYPE: lambda x: x
+    NONETYPE: lambda x: x,
+    dict: lambda  x: json.dumps(x),
 }
 
 _COUCH_DB_UPDATES_ARG_TYPES = {
@@ -90,6 +91,7 @@ _DB_UPDATES_ARG_TYPES = {
     'descending': (bool,),
     'limit': (int, LONGTYPE, NONETYPE,),
     'since': (int, LONGTYPE, STRTYPE,),
+    'filter_req': (dict, ),
 }
 _DB_UPDATES_ARG_TYPES.update(_COUCH_DB_UPDATES_ARG_TYPES)
 _DB_UPDATES_ARG_TYPES['heartbeat'] = (int, LONGTYPE, NONETYPE,)

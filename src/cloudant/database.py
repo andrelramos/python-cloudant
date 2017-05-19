@@ -517,6 +517,8 @@ class CouchDatabase(dict):
             both are supplied.
         :param int chunk_size: The HTTP response stream chunk size.  Defaults to
             512.
+        :param dict filter_req: Dict with values to send to req filter argument. Defaults is None.
+            See more on http://docs.couchdb.org/en/2.0.0/api/database/changes.html#post--db-_changes
 
         :returns: Feed object that can be iterated over as a ``_changes`` feed.
         """
